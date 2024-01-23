@@ -1,0 +1,7 @@
+ansible/vault-password
+.idea
+terraform/terraform.tfstate
+terraform/.terraform.lock.hcl
+terraform/.terraform
+terraform/terraform.tfstate.backup
+terraform/.terraform.tfstate.lock.info
