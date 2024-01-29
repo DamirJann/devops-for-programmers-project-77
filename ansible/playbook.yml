@@ -1,0 +1,61 @@
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: Install pip and docker module
+      import_role:
+        name: geerlingguy.pip
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        update_cache: true
+
+    - name: copy .env to remote
+      ansible.builtin.copy:
+        src: .env
+        dest: ./.env
+        mode: "666"
+
+    - name: Deploy app
+      community.docker.docker_container:
+        name: app
+        image: "redmine"
+        restart_policy: always
+        state: started
+        ports:
+          - 80:3000
+          - 443:3000
+        env_file: .env
+
+    - name: Send request to Upmont
+      ansible.builtin.cron:
+        name: "upmont ping"
+        job: "curl {{ upmont_url }}"
+
+
+    - name: Datadog Agent installation
+      import_role:
+        name: datadog.dd.agent
+      vars:
+        datadog_apm_instrumentation_enabled: "all"
+        datadog_checks:
+          http_check:
+            init_config:
+            instances:
+              - name: Redmine
+                url: http://localhost
+                method: GET
+                timeout: 10
+                http_response_status_code: 200
+
+

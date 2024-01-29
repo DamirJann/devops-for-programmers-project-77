@@ -1,7 +1,10 @@
-ansible/vault-password
+ansible/vault-password-file
+terraform/vault-password-file
 .idea
 terraform/terraform.tfstate
 terraform/.terraform.lock.hcl
 terraform/.terraform
 terraform/terraform.tfstate.backup
 terraform/.terraform.tfstate.lock.info
+ansible/.env
+ansible/inventory.yml
