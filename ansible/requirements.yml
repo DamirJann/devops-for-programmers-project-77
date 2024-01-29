@@ -1,0 +1,7 @@
+roles:
+  - geerlingguy.pip
+
+collections:
+  - community.docker
+  - name: datadog.dd
+    version: "5.0.1"

@@ -1,0 +1,1 @@
+site_name = "devops-for-programmers-project-76.ru"

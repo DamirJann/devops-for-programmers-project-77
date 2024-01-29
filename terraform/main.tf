@@ -8,5 +8,6 @@ terraform {
       source  = "MeilleursAgents/ansiblevault"
       version = "~> 2.0"
     }
+
   }
 }

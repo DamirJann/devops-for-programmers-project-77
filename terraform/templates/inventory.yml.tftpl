@@ -1,0 +1,8 @@
+all:
+  children:
+    webservers:
+      hosts:
+       %{~ for droplet in droplets }
+        ${droplet.name}:
+          ansible_host: ${droplet.ipv4_address}
+       %{~ endfor ~}
