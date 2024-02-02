@@ -15,13 +15,6 @@ resource "digitalocean_loadbalancer" "public" {
   redirect_http_to_https = true
 
   forwarding_rule {
-    entry_port     = 80
-    entry_protocol = "http"
-
-    target_port     = 80
-    target_protocol = "http"
-  }
-  forwarding_rule {
     entry_port     = 443
     entry_protocol = "https"
 
